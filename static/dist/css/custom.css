@@ -1,0 +1,102 @@
+.content {
+    padding: 0 15px;
+}
+
+
+.sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+    margin-left: 0!important;
+}
+
+.main-header {
+    padding-left: 15px;
+    color: white;
+    background-color: #4e8cff;
+}
+
+.direct-chat-primary .right>.direct-chat-text {
+    background-color: #4e8cff;
+    background: #4e8cff;
+    border-color: #4e8cff;
+}
+
+.card.card-prirary.cardutline.direct-chat.direct-chat-primary {
+    /* height: auto; */
+    height: calc(100vh - 40vh);
+}
+
+.help-desk .card.card-prirary.cardutline.direct-chat.direct-chat-primary {
+    /* height: auto; */
+    height: calc(100vh - 30vh);
+}
+
+.direct-chat-messages {
+    height: calc(100vh - 55vh);
+    overflow-y: scroll;
+}
+
+.help-desk .direct-chat-messages {
+    height: calc(100vh - 50vh);
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.user-icon{
+    padding: 5px;
+}
+
+
+.user-icon i {
+    font-size: 30px;
+    color: #525252;
+}
+
+.card.card-prirary.cardutline.direct-chat.direct-chat-primary .card-header {
+    background-color: #4e8cff;
+    color: white;
+    padding: 20px;
+}
+
+.card.card-prirary.cardutline.direct-chat.direct-chat-primary,.card.card-prirary.cardutline.direct-chat.direct-chat-primary .card-header{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.direct-chat-text {
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.left .direct-chat-text {
+    margin-right: 25%;
+}
+
+
+.right .direct-chat-text {
+    margin-left: 25%;
+    margin-right: 40px;
+}
+
+.chat-input, .chat-input:focus {
+    background-color: transparent;
+    border: none;
+    padding: 15px 5px;
+}
+
+.send-button.btn {
+    padding-right: 15px; 
+}
+.send-button.btn i {
+    color: #696969;
+}
+
+.no-h-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.direct-chat .card-body {
+    overflow-x: inherit;
+}
+
