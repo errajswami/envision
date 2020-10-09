@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,61 +20,45 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse help-desk">
-<div class="wrapper">
+  <div class="wrapper">
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <h2 class="title">SAGA</h2>
+      <h2 class="title">SAGA</h2>
     </nav>
     <!-- /.navbar -->
 
 
-      <!-- Content Wrapper. Contains page content -->
-  <div class="content">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
           <h4>Help Desk</h4>
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-md-3">
-
-            </div>
-          <div class="col-md-6">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
               <!-- DIRECT CHAT PRIMARY -->
               <div class="card card-prirary cardutline direct-chat direct-chat-primary">
                 <div class="card-header">
                   <h3 class="card-title">Chat</h3>
-  
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <!-- Conversations are loaded here -->
                   <div class="direct-chat-messages">
- 
-
+                    <!-- Conversations are loaded here -->
                   </div>
-                  <!--/.direct-chat-messages-->
-
-                  <div class="col-md-12" hidden>
-                    <div id="results">
-                      <span id="final_span" class="final"></span>
-                      <span id="interim_span" class="interim"></span>
-                      <p>
-                    </div>
-                  </div>
-      
-                  <!-- /.direct-chat-pane -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer no-h-padding">
@@ -85,55 +70,54 @@
                     <div class="col-md-6">
                       <select id="select_dialect" class="form-control"></select>
                     </div>
-                   </div>
+                  </div>
 
-                    <div class="input-group">
-                      <span class="input-group-append">
-                        <button type="submit" class="btn" id="start_button"> 
-                          <img id="start_img" height="30" width="30" src="" alt="Start">
-                        </button>
-                      </span>
+                  <div class="input-group">
+                    <span class="input-group-append">
+                      <button type="submit" class="btn" id="speech_mic">
+                        <img id="start_img" height="30" width="30" src="" alt="Start">
+                      </button>
+                    </span>
 
-                      
-                      <input type="text" name="message" id="chat-input"  placeholder="Write a reply" class="form-control chat-input" autocomplete="off">
-                      
-                      <span class="input-group-append">
-                        <button type="submit" id="chat-send-btn" class="btn send-button"> <i class="fas fa-paper-plane"></i> </button>
-                      </span>
-                    </div>
+
+                    <input type="text" name="message" id="chat-input" placeholder="Write a reply"
+                      class="form-control chat-input" autocomplete="off">
+
+                    <span class="input-group-append">
+                      <button type="submit" id="chat-send-btn" class="btn send-button"> <i
+                          class="fas fa-paper-plane"></i> </button>
+                    </span>
+                  </div>
                 </div>
                 <!-- /.card-footer-->
               </div>
               <!--/.direct-chat -->
             </div>
-            <!-- /.col -->
+
+            <!-- right col -->
           </div>
-        </div>
-
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+          <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
   </div>
-  <!-- /.content-wrapper -->
 
+
+  <script src="{{ url_for('static',filename='plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script src="{{ url_for('static',filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='dist/js/adminlte.js') }}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
   
-<!-- jQuery -->
-<script src="{{ url_for('static',filename='plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ url_for('static',filename='plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ url_for('static',filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/js/adminlte.js') }}"></script>
-
-<script src="{{ url_for('static',filename='app/video.js') }}"></script>
-<script src="{{ url_for('static',filename='app/languages.js') }}"></script>
-<script src="{{ url_for('static',filename='app/web-speech-api.js') }}"></script>
-<script src="{{ url_for('static',filename='app/helpDesk.js') }}"></script>
+  <script src="{{ url_for('static',filename='app/languages.js') }}"></script>
+  <script src="{{ url_for('static',filename='app/constants.js') }}"></script>
+  <script src="{{ url_for('static',filename='app/web-speech-api.js') }}"></script>
+  <script src="{{ url_for('static',filename='app/Chat.js') }}"></script>
+  <script src="{{ url_for('static',filename='app/helpDesk.js') }}"></script>
 
 </body>
+
 </html>
