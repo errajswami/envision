@@ -60,6 +60,7 @@ function Main() {
   })
 
   socket.on('my response', function (payload) {
+    $("#videoPlayer").attr("poster", "https://via.placeholder.com/350x195/333333/?text=%20")
     if (payload.user_name === "Help Desk") {
       chat.send(payload.message, USER_TYPE.SYSTEM);
       const objVideo = new VideoProcessing(DOMS.VIDEO_PLAYER_DOM, DOMS.VIDEO_SRC_DOM);
