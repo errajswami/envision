@@ -10,6 +10,16 @@ function Main() {
   const chatSendBtn = $(DOMS.CHAT_SEND_BUTTON);
   const suggestion = $(".suggestion");
 
+  $("#welcome-note").fadeIn("slow");
+
+  $("#lets-start").click(function() {
+    $("#welcome-note").fadeOut("slow");
+    setTimeout(function(){
+      $("#nav").fadeIn(1000);
+      $("#main-content").fadeIn(2000);
+    }, 600);
+  })
+
   let sendMessage = function () {
     const strMessage = chatInput.val();
     chat.send(strMessage, USER_TYPE.USER);
