@@ -18,6 +18,7 @@ import time
 import numpy as np
 import cv2
 import itertools
+from dict import WordMatcher
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful for multiple browsers/tabs
 # are viewing tthe stream)
@@ -26,7 +27,7 @@ outputFrame = None
 model = load_model('cnn_model_keras2.h5')
 x, y, w, h = 50, 50, 300, 350
 lock = threading.Lock()
-
+wordMatcher = WordMatcher()
 # initialize a flask object
 app = Flask(__name__)
 socketio = SocketIO(app) 
@@ -152,8 +153,6 @@ def detect_motion(frameCount):
 			if frameCnt % 15 == 0: 
 				pred_text=get_pred_from_contour(frame)
 				if pred_text != None and pred_text != 'NOTHING':
-					print('Old Text='+old_text)
-					print('New Text='+pred_text)
 					if old_text != pred_text: #and pred_text != 'Thank you!' and pred_text != 'Awesome!':
 						word = word + pred_text   
 						old_text = pred_text   
@@ -163,15 +162,11 @@ def detect_motion(frameCount):
 					elif old_text == pred_text:
 						dup_time =  dup_time + 1 
 						print("dup_time="+str(dup_time))
-					if dup_time > 2000:
-						word = ''.join(ch for ch, _ in itertools.groupby(word))
-						dup_time=0
-						#sentence = sentence +" "+word
-						socketio.emit('message', 'wordz='+word)                
-						word=""
 				elif pred_text == 'NOTHING':   
 					none_time=none_time+1
-				if pred_text == 'NOTHING' and none_time == 2:   
+				if pred_text == 'NOTHING' and none_time == 2:
+					correctWord = wordMatcher.correction(word)
+					word = word if correctWord is None else correctWord
 					sentence = sentence +" "+word
 					socketio.emit('message', 'word='+word)   
 					word=""
@@ -182,7 +177,7 @@ def detect_motion(frameCount):
 					socketio.emit('message', sentence)                
 					sentence="" 
 				frameCnt = 0
-			cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 1)
+			cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 1)
 			#res = np.hstack((frame, blackboard))
 			res = frame
 			with lock:
