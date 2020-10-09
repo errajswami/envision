@@ -89,6 +89,7 @@ def keras_predict(model, image):
 	pred_probab = model.predict(np.array([processed]))[0]
 	#pred_class = list(pred_probab).index(max(pred_probab))
 	pred_class = np.argmax(pred_probab)
+	print('Pred class-->'+str(pred_class))
 	max_probab = np.max(pred_probab)
 	return max_probab,pred_class
 
@@ -101,7 +102,8 @@ def get_pred_text_from_db(pred_class):
     
 def get_pred_text_from_list(pred_class) :
     #class_list=['A','B','C','D','E','F','G','H','I','J','Welcome!','NA']
-    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING']
+    #class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING']
+    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','You','Income','What','Can','Good']
     return class_list[pred_class]
                 
 def say_text(text):
