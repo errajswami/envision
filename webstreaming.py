@@ -24,7 +24,7 @@ import itertools
 outputFrame = None
 #model = load_model('cnn_model_keras_sid.h5')
 model = load_model('cnn_model_keras2.h5')
-x, y, w, h = 300, 100, 300, 350
+x, y, w, h = 50, 50, 300, 350
 lock = threading.Lock()
 
 # initialize a flask object
@@ -67,8 +67,6 @@ def stopit():
 @app.route("/item")
 def item():
 	return ''
-
-
     
 @app.route("/startit")
 def startit():
@@ -91,6 +89,7 @@ def keras_predict(model, image):
 	pred_probab = model.predict(np.array([processed]))[0]
 	#pred_class = list(pred_probab).index(max(pred_probab))
 	pred_class = np.argmax(pred_probab)
+	print('Pred class-->'+str(pred_class))
 	max_probab = np.max(pred_probab)
 	return max_probab,pred_class
 
@@ -103,7 +102,8 @@ def get_pred_text_from_db(pred_class):
     
 def get_pred_text_from_list(pred_class) :
     #class_list=['A','B','C','D','E','F','G','H','I','J','Welcome!','NA']
-    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Awesome!','Thank you!','SPACE','DEL','NOTHING']
+    #class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING']
+    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','You','Income','What','Can','Good']
     return class_list[pred_class]
                 
 def say_text(text):
@@ -130,7 +130,13 @@ def detect_motion(frameCount):
 	# read thus far
 	md = SingleMotionDetector(accumWeight=0.1)
 	total = 0
+	frameCnt = 0    
 	word = ""
+	sentence = ""
+	pred_text= ' '
+	old_text= ' '
+	dup_time = 0
+	none_time = 0
 	# loop over frames from the video stream
 	while True:
 		# read the next frame from the video stream, resize it,
@@ -139,27 +145,46 @@ def detect_motion(frameCount):
 			vs = cv2.VideoCapture(0)
 			vs.set(cv2.CAP_PROP_FPS, 30)
 		frame = vs.read()[1]
-		pred_text= ' '
-		old_text = pred_text
+
 		if frame.any() != None:
+			frameCnt = frameCnt + 1
 			frame = cv2.flip(frame, 1)
-			pred_text=get_pred_from_contour(frame)
-            
-			blackboard = np.zeros((480, 640, 3), dtype=np.uint8)
-			cv2.putText(blackboard, " ", (180, 50), cv2.FONT_HERSHEY_TRIPLEX, 1.5, (255, 0,0))
-			if pred_text != None and pred_text != 'NOTHING':
-				if old_text != pred_text and pred_text != 'Awesome!':
-					word = word + pred_text   
-					old_text = pred_text                    
-				elif pred_text == 'Awesome!':
-					word = ''.join(ch for ch, _ in itertools.groupby(word))
-					cv2.putText(blackboard, word, (30, 240), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 255, 255))
-					socketio.emit('message', word) 
+			if frameCnt % 15 == 0: 
+				pred_text=get_pred_from_contour(frame)
+				if pred_text != None and pred_text != 'NOTHING':
+					print('Old Text='+old_text)
+					print('New Text='+pred_text)
+					if old_text != pred_text: #and pred_text != 'Thank you!' and pred_text != 'Awesome!':
+						word = word + pred_text   
+						old_text = pred_text   
+						dup_time=0
+						none_time=0
+						socketio.emit('pred', pred_text)
+					elif old_text == pred_text:
+						dup_time =  dup_time + 1 
+						print("dup_time="+str(dup_time))
+					if dup_time > 2000:
+						word = ''.join(ch for ch, _ in itertools.groupby(word))
+						dup_time=0
+						#sentence = sentence +" "+word
+						socketio.emit('message', 'wordz='+word)                
+						word=""
+				elif pred_text == 'NOTHING':   
+					none_time=none_time+1
+				if pred_text == 'NOTHING' and none_time == 2:   
+					sentence = sentence +" "+word
+					socketio.emit('message', 'word='+word)   
 					word=""
-				cv2.putText(blackboard, "Predicted text- " + str(pred_text), (30, 100), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 255, 0))
-			#cv2.putText(blackboard, word, (30, 240), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 255, 255))
+				if pred_text == 'NOTHING' and none_time > 4:   
+					sentence = sentence +" "+word
+					none_time=0
+					word=""
+					socketio.emit('message', sentence)                
+					sentence="" 
+				frameCnt = 0
 			cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 1)
-			res = np.hstack((frame, blackboard))
+			#res = np.hstack((frame, blackboard))
+			res = frame
 			with lock:
 				outputFrame = res.copy()
              

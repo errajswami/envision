@@ -9,7 +9,19 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ url_for('static',filename='plugins/fontawesome-free/css/all.min.css')}}">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
   <!-- Ionicons -->
+    <script type="text/javascript" charset="utf-8">
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+			
+            socket.on('message', function(data) {
+                 document.getElementById("chat-input").value = data
+            });
+			socket.on('pred', function(data) {
+                 document.getElementById("chat-input").value = data
+            });
+
+  </script>
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url_for('static',filename='dist/css/adminlte.min.css') }}">
@@ -53,7 +65,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <img width="100%" height="600" src="https://via.placeholder.com/1027x720/333333/?text=%20" alt="Web cam">
+                    <img src="{{ url_for(item) }}" alt="Web cam">
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
@@ -154,7 +166,6 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ url_for('static',filename='plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ url_for('static',filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static',filename='dist/js/adminlte.js') }}"></script>
