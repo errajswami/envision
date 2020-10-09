@@ -41,10 +41,11 @@ time.sleep(2.0)
 t = threading.Thread()
 item=""
 initial=1
+welcome=0
 @app.route("/")
 def index():
 	# return the rendered template
-	return render_template("index.html", item="item", initial=initial, start=0)
+	return render_template("index.html", item="item", initial=initial, start=0, welcome=1)
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
@@ -64,7 +65,7 @@ def stopit():
 	global vs, t
 	vs.release();
 	t.join()   
-	return render_template("index.html",item="item", initial=1, start=0)
+	return render_template("index.html",item="item", initial=1, start=0, welcome=0)
 
 @app.route("/item")
 def item():
@@ -77,7 +78,7 @@ def startit():
 	t.daemon = True
 	t.start() 
 	vs = cv2.VideoCapture(0);
-	return render_template("index.html", item="video_feed", initial=0, start=1)
+	return render_template("index.html", item="video_feed", initial=0, start=1, welcome=0)
 
 def keras_process_image(img):
 	crop_img = img[y:y+h, x:x+w].astype('float32')/255.0

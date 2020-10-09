@@ -10,19 +10,27 @@ function Main() {
   const chatSendBtn = $(DOMS.CHAT_SEND_BUTTON);
   const suggestion = $(".suggestion");
 
-  $("#welcome-note").fadeIn("slow");
+  let isWelcomeScreen = $(".main-wrapper").data("id");
 
-  setTimeout(function(){
-    $("#lets-start").fadeIn();
-  }, 1000);
+  if(isWelcomeScreen === 1) {
 
-  $("#lets-start").click(function() {
-    $("#welcome-note").fadeOut("slow");
+    $("#welcome-note").fadeIn("slow");
+
     setTimeout(function(){
-      $("#nav").fadeIn(1000);
-      $("#main-content").fadeIn(2000);
-    }, 600);
-  })
+      $("#lets-start").fadeIn();
+    }, 1000);
+
+    $("#lets-start").click(function() {
+      $("#welcome-note").fadeOut("slow");
+      setTimeout(function(){
+        $("#nav").fadeIn(1000);
+        $("#main-content").fadeIn(2000);
+      }, 600);
+    })
+  } else {
+    $("#nav").show();
+    $("#main-content").show();
+  }
 
   let sendMessage = function () {
     const strMessage = chatInput.val();
