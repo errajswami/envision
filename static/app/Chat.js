@@ -44,6 +44,10 @@ function Chat(placeHolder) {
   this.send = function (message, boolUserType = USER_TYPE.SYSTEM) {
     let content = ``;
 
+    if($(".direct-chat-msg").length === 0) {
+      this.placeHolder.html("");
+    }
+
     if (boolUserType === USER_TYPE.SYSTEM) {
       content = this.getSystemMessage(message);
     } else {
