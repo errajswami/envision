@@ -27,7 +27,7 @@ function HelpDesk() {
   })
 
   socket.on('connect', function () {
-    chat.send(strMessage);
+    chat.send("Welcome");
     socket.emit('my event', {
       user_name: 'Help Desk',
       message: 'Welcome'
