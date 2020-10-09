@@ -2,7 +2,6 @@
     padding: 0 15px;
 }
 
-
 .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
     margin-left: 0!important;
 }
@@ -21,21 +20,27 @@
 
 .card.card-prirary.cardutline.direct-chat.direct-chat-primary {
     /* height: auto; */
-    height: calc(100vh - 40vh);
+    height: 49vh;
 }
 
 .help-desk .card.card-prirary.cardutline.direct-chat.direct-chat-primary {
-    /* height: auto; */
-    height: calc(100vh - 30vh);
+    height: 75vh;
+}
+
+.initial-text {
+    position: relative;
+    padding-top: 5vh;
+    font-size: 2.5vw;
+    color: #b3b3b3;
 }
 
 .direct-chat-messages {
-    height: calc(100vh - 55vh);
+    height: 29vh;
     overflow-y: scroll;
 }
 
 .help-desk .direct-chat-messages {
-    height: calc(100vh - 50vh);
+    height: calc(100vh - 45vh);
 }
 
 .padding-15 {
@@ -45,7 +50,6 @@
 .user-icon{
     padding: 5px;
 }
-
 
 .user-icon i {
     font-size: 30px;
@@ -102,4 +106,39 @@
 
 .prediction{
     color: #525252;
+}
+
+.gesture-placeholder {
+    background-color: #333333;
+    height: calc(100vh - 40vh);
+    width: 100%;
+    line-height: 50vh;
+    font-size: 4vw;
+    text-align: center;
+    color: #585858;
+}
+
+.responsive {
+    width: 100%;
+    max-height: 38vh;
+}
+
+.main-card {
+    margin-right: 20px;
+}
+
+.suggestions {
+    padding: 20px;
+}
+.suggestions span {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    border-radius: 60px;
+    box-shadow: 0px 2px 2px #bbbbbb;
+    cursor: pointer;
+    margin: 0 3px;
+}
+
+span.suggestion:hover {
+    box-shadow: 0px 2px 2px #808080;
 }

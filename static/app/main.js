@@ -8,6 +8,7 @@ function Main() {
 
   const chatInput = $(DOMS.CHAT_INPUT);
   const chatSendBtn = $(DOMS.CHAT_SEND_BUTTON);
+  const suggestion = $(".suggestion");
 
   let sendMessage = function () {
     const strMessage = chatInput.val();
@@ -24,6 +25,16 @@ function Main() {
     if (e.which == 13) {
       sendMessage();
     }
+  })
+
+  suggestion.click(function(e) {
+    let strMessage = $(this).html();
+    chat.send(strMessage, USER_TYPE.USER);
+    socket.emit('my event', {
+      user_name: 'Customer',
+      message: strMessage
+    })
+    $(this).remove();
   })
 
   socket.on('my response', function (payload) {
