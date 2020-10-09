@@ -12,6 +12,10 @@ function Main() {
 
   $("#welcome-note").fadeIn("slow");
 
+  setTimeout(function(){
+    $("#lets-start").fadeIn();
+  }, 1000);
+
   $("#lets-start").click(function() {
     $("#welcome-note").fadeOut("slow");
     setTimeout(function(){
