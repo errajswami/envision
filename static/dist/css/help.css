@@ -1,0 +1,11 @@
+.main-header {
+    padding-left: 15px;
+    color: white;
+    background-color: #453463;
+}
+
+.card.card-prirary.cardutline.direct-chat.direct-chat-primary .card-header {
+    background-color: #453463;
+    color: white;
+    padding: 20px;
+}
