@@ -4,7 +4,6 @@ $(document).ready(HelpDesk);
 function HelpDesk() {
   const messagePlaceholder = $(DOMS.CHAT_MESSAGE_PLACEHOLDER);
   const chat = new Chat(messagePlaceholder);
-  const FIRST_MESSAGE = "Hello, How can I help?";
   const socket = io.connect(SERVER_URL);
 
   const chatInput = $(DOMS.CHAT_INPUT);
@@ -26,6 +25,14 @@ function HelpDesk() {
       sendMessage();
     }
   })
+
+  socket.on('connect', function () {
+    chat.send(strMessage);
+    socket.emit('my event', {
+      user_name: 'Help Desk',
+      message: 'Welcome'
+    });
+  });
 
 
   socket.on('my response', function (payload) {
