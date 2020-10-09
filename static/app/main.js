@@ -46,12 +46,13 @@ function Main() {
   });
 
   socket.on('message', function (data) {
-    document.getElementById("chat-input").value = data
+    document.getElementById("predicting-text").innerHTML  = data
   });
 
 
   socket.on('pred', function (data) {
     document.getElementById("chat-input").value = data
+	sendMessage();
   });
 
 }
