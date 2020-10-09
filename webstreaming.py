@@ -38,7 +38,7 @@ socketio = SocketIO(app)
 vs = cv2.VideoCapture(0)
 time.sleep(2.0)
 t = threading.Thread()
-item=""
+item="item"
 @app.route("/")
 def index():
 	# return the rendered template
@@ -66,7 +66,7 @@ def stopit():
 
 @app.route("/item")
 def item():
-	return ''
+	return Response('/img/video.png')
     
 @app.route("/startit")
 def startit():
@@ -103,7 +103,7 @@ def get_pred_text_from_db(pred_class):
 def get_pred_text_from_list(pred_class) :
     #class_list=['A','B','C','D','E','F','G','H','I','J','Welcome!','NA']
     #class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING']
-    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','You','Income','What','Can','Good']
+    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','Income','What','Can',' ']
     return class_list[pred_class]
                 
 def say_text(text):
