@@ -106,7 +106,7 @@ def get_pred_text_from_db(pred_class):
 def get_pred_text_from_list(pred_class) :
     #class_list=['A','B','C','D','E','F','G','H','I','J','Welcome!','NA']
     #class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING']
-    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','Insurance','What','Can',' ']
+    class_list=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',' ','DEL','NOTHING','How','INSURANCE','What','A',' ']
     return class_list[pred_class]
                 
 def say_text(text):
@@ -160,7 +160,7 @@ def detect_motion(frameCount):
 						old_text = pred_text   
 						dup_time=0
 						none_time=0
-						socketio.emit('message', pred_text)
+						socketio.emit('message', 'Symbol :'+pred_text)
 					elif old_text == pred_text:
 						dup_time =  dup_time + 1 
 						print("dup_time="+str(dup_time))
@@ -171,7 +171,7 @@ def detect_motion(frameCount):
 					old_text= ' '
 					word = word if correctWord is None else correctWord
 					if len(word.strip()) > 0:
-						socketio.emit('message', 'Detected Word ='+word)     
+						socketio.emit('message', 'Word :'+word)     
 						sentence = sentence +" "+word
 					word=""
 				if pred_text == 'NOTHING' and none_time > 4:   
@@ -182,7 +182,7 @@ def detect_motion(frameCount):
 						socketio.emit('pred', sentence)                
 					sentence="" 
 				frameCnt = 0
-			cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 1)
+			#cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 1)
 			#res = np.hstack((frame, blackboard))
 			res = frame
 			with lock:

@@ -74,6 +74,7 @@ function Main() {
 
 
   socket.on('pred', function (data) {
+	document.getElementById("predicting-text").innerHTML  = data  
     document.getElementById("chat-input").value = data
 	sendMessage();
   });
